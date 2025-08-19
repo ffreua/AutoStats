@@ -16,8 +16,12 @@ st.set_page_config(page_title="Auto Stats App", layout="wide")
 # --- Sidebar e "Sobre" ---
 st.sidebar.title("Menu")
 if st.sidebar.button("Sobre"):
-    st.sidebar.info("Desenvolvido por Dr Fernando Freua - fernando.freua@hc.fm.usp.br - A distribuição é gratuita")
-
+    #st.sidebar.info("Desenvolvido por Dr Fernando Freua - fernando.freua@hc.fm.usp.br - A distribuição é gratuita")
+    st.sidebar.info("""
+👨‍⚕️ **Desenvolvido por:** Dr Fernando Freua  
+✉️ **E-mail:** [fernando.freua@hc.fm.usp.br](mailto:fernando.freua@hc.fm.usp.br)  
+🔓 **Licença:** Distribuição gratuita para uso pessoal
+""")
 
 st.title("📊 Auto Stats: Análises Estatísticas Automáticas")
 st.caption("Faça upload de um arquivo CSV/Excel com dados tabulados. O app detecta tipos de variáveis, sugere análises e gera gráficos e um PDF.")
