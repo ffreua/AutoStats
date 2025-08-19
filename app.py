@@ -13,7 +13,7 @@ from scipy import stats
 
 st.set_page_config(page_title="Auto Stats App", layout="wide")
 
-# --- Sidebar: About ---
+# --- Sidebar e "Sobre" ---
 st.sidebar.title("Menu")
 if st.sidebar.button("Sobre"):
     st.sidebar.info("Desenvolvido por Dr Fernando Freua - fernando.freua@hc.fm.usp.br - A distribuição é gratuita")
@@ -35,11 +35,11 @@ def detect_types(df: pd.DataFrame):
     types = {}
     for col in df.columns:
         s = df[col]
-        # Try datetime
+        # Tenta datetime
         if pd.api.types.is_datetime64_any_dtype(s):
             types[col] = "datetime"
             continue
-        # Try to coerce strings that look like dates
+        # Tenta strings com formato de data
         if s.dtype == object:
             try:
                 pd.to_datetime(s, errors="raise")
@@ -47,7 +47,7 @@ def detect_types(df: pd.DataFrame):
                 continue
             except Exception:
                 pass
-        # Numeric vs categorical heuristic
+        # Heuristica numerica Vs Categórica
         if pd.api.types.is_numeric_dtype(s):
             # many unique => numeric; few unique => maybe categorical numeric labels
             nunique = s.nunique(dropna=True)
@@ -165,7 +165,7 @@ def run_test(df, kind, a, b=None):
 def plot_descriptives(df, types):
     figs = []
 
-    # Histograms for numeric
+    # Histograma para variaveis numéricas - Atenção para possiveis erros - reportar para Ferrnando Freua
     for col, t in types.items():
         if t == "numeric":
             fig = plt.figure()
@@ -175,7 +175,7 @@ def plot_descriptives(df, types):
             plt.xlabel(col); plt.ylabel("Frequência")
             figs.append(("hist_"+col, fig))
 
-    # Bar charts for categorical (top 20)
+    # Barras para categoricas
     for col, t in types.items():
         if t == "categorical":
             fig = plt.figure()
@@ -186,7 +186,7 @@ def plot_descriptives(df, types):
             plt.tight_layout()
             figs.append(("bar_"+col, fig))
 
-    # Correlation heatmap (numeric)
+    # Correlações heatmap (numeric)
     num_cols = [c for c,t in types.items() if t=="numeric"]
     if len(num_cols) >= 2:
         corr = df[num_cols].corr(numeric_only=True)
@@ -215,7 +215,7 @@ def pdf_report(df, types, desc_summaries, test_results, figs):
         plt.text(0.5, 0.1, body, ha="center", va="center", fontsize=9)
         pdf.savefig(fig); plt.close(fig)
 
-        # Descriptive stats table for numeric
+        # Stats descritivas para numéricas
         if "numeric" in desc_summaries:
             fig = plt.figure(figsize=(11.69, 8.27))  # A4 landscape
             plt.axis("off")
@@ -226,7 +226,7 @@ def pdf_report(df, types, desc_summaries, test_results, figs):
             tbl.auto_set_font_size(False); tbl.set_fontsize(7); tbl.scale(1, 1.2)
             pdf.savefig(fig); plt.close(fig)
 
-        # Frequencies for categoricals
+        # Frequencia para categoricas
         if "categorical" in desc_summaries:
             for col, vc in desc_summaries["categorical"].items():
                 fig = plt.figure(figsize=(11.69, 8.27))
@@ -240,7 +240,7 @@ def pdf_report(df, types, desc_summaries, test_results, figs):
                 tbl.auto_set_font_size(False); tbl.set_fontsize(8); tbl.scale(1, 1.2)
                 pdf.savefig(fig); plt.close(fig)
 
-        # Datetime summary
+        # Datetime - Sumário geral
         if "datetime" in desc_summaries:
             fig = plt.figure(figsize=(11.69, 8.27))
             plt.axis("off")
@@ -251,7 +251,7 @@ def pdf_report(df, types, desc_summaries, test_results, figs):
             tbl.auto_set_font_size(False); tbl.set_fontsize(8); tbl.scale(1, 1.2)
             pdf.savefig(fig); plt.close(fig)
 
-        # Inferential results
+        # Resultados inferenciais de acordo com validação AI
         if test_results:
             rows = []
             for r in test_results:
@@ -271,7 +271,7 @@ def pdf_report(df, types, desc_summaries, test_results, figs):
             tbl.auto_set_font_size(False); tbl.set_fontsize(7); tbl.scale(1, 1.1)
             pdf.savefig(fig); plt.close(fig)
 
-        # Figures
+        # Figuras
         for _, fig in figs:
             pdf.savefig(fig); plt.close(fig)
 
