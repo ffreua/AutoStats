@@ -14,28 +14,10 @@ from scipy import stats
 st.set_page_config(page_title="Auto Stats App", layout="wide")
 
 # --- Sidebar e "Sobre" ---
-#st.sidebar.title("Menu")
-#if st.sidebar.button("Sobre"):
-#    st.sidebar.info("Desenvolvido por Dr Fernando Freua - fernando.freua@hc.fm.usp.br - A distribuição é gratuita")
-st.sidebar.header("Menu")
+st.sidebar.title("Menu")
+if st.sidebar.button("Sobre"):
+    st.sidebar.info("Desenvolvido por Dr Fernando Freua - fernando.freua@hc.fm.usp.br - A distribuição é gratuita")
 
-st.sidebar.markdown(
-    f"""
-<div style="padding:14px;border:1px solid #eaeaea;border-radius:12px;
-            background:linear-gradient(180deg, #fafafa, #f5f5f5);">
-  <div style="font-weight:600; margin-bottom:6px;">ℹ️ Sobre o aplicativo</div>
-  <div>👨‍⚕️ <b>Desenvolvido por:</b> Dr Fernando Freua</div>
-  <div>✉️ <b>E-mail:</b> <a href="mailto:fernando.freua@hc.fm.usp.br">
-      fernando.freua@hc.fm.usp.br</a></div>
-  <div>🔓 <b>Licença:</b> Distribuição gratuita para uso pessoal</div>
-  <hr style="border:none;border-top:1px solid #eee; margin:10px 0;">
-  <div style="font-size:12px; opacity:0.75;">
-    Versão {APP_VERSION} • Atualizado em {LAST_UPDATE} • © {datetime.now().year}
-  </div>
-</div>
-""",
-    unsafe_allow_html=True,
-)
 
 st.title("📊 Auto Stats: Análises Estatísticas Automáticas")
 st.caption("Faça upload de um arquivo CSV/Excel com dados tabulados. O app detecta tipos de variáveis, sugere análises e gera gráficos e um PDF.")
