@@ -14,7 +14,7 @@ from scipy import stats
 st.set_page_config(page_title="Auto Stats App", layout="wide")
 
 # --- Sidebar e "Sobre" ---
-st.sidebar.title("AutoStats! Bem-Vindo")
+st.sidebar.title("Bem-Vindo!")
 if st.sidebar.button("ℹ️ Sobre o App"):
     #st.sidebar.info("Desenvolvido por Dr Fernando Freua - fernando.freua@hc.fm.usp.br - A distribuição é gratuita")
     st.sidebar.info("""
